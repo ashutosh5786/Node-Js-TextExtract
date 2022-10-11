@@ -1,8 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const fs = require('fs');
-const { PutObjectCommand, S3Client, S3 } = require('@aws-sdk/client-s3');
-const path = require("path");
+const { S3 } = require('@aws-sdk/client-s3');
 const multer = require("multer");
 const multerS3 = require("multer-s3");
 const AWS = require("aws-sdk");
@@ -18,10 +16,6 @@ const AWS = require("aws-sdk");
 //   });
 
 
-// Create S3 service object
-// Set the region
-// AWS.config.update({ region: "ap-south-1" });
-// const { s3 } = require("aws-sdk");
 
 // Create S3 service object
 s3 = new S3({ apiVersion: "2006-03-01" });
@@ -37,9 +31,6 @@ const upload = multer({
       bucket: "nodejs-file",
       contentType: multerS3.AUTO_CONTENT_TYPE,
       key: function (req, file, cb) {
-        // filenames = file.originalname;
-        // var fullPath = 'products/' + file.originalname
-        // console.log(file)
         cb(null, file.originalname);
       },
     }),
