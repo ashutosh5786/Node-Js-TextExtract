@@ -15,7 +15,7 @@ router.post("/api/upload", upload);
 
 
 router.post(/api/, (req, res) => {
-    res.send("Invalid API");
+    res.status(404).send("Invalid API");
 });
 
 
