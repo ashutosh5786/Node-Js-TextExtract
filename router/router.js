@@ -13,11 +13,10 @@ router.get("/", (req, res) => {
 //routing for upload
 router.post("/api/upload", upload);
 
-// router.get(/api/, (req, res) => {
-//     res.send("Invalid API");
-// }).post(/api/, (req, res) => {
-//     res.send("Invalid API");
-// });
+
+router.post(/api/, (req, res) => {
+    res.send("Invalid API");
+});
 
 
 module.exports = router;
