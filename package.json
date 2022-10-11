@@ -1,0 +1,15 @@
+{
+  "name": "textextract",
+  "version": "0.0.1",
+  "description": "Uses to extract the text from the given image",
+  "main": "index.js",
+  "scripts": {
+    "test": "nodemon index.js"
+  },
+  "author": "Ashutosh Singh",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.2",
+    "nodemon": "^2.0.20"
+  }
+}
