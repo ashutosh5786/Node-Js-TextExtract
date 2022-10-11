@@ -8,8 +8,8 @@ app.use("/", routes);
 
 
 // Start the server
-app.listen(8000, function(err){
+app.listen(80, function(err){
     if (err) console.log(err);
-    console.log("Server listening on http://localhost:8000");
+    console.log("Server listening on http://localhost:80");
 }); 
 
