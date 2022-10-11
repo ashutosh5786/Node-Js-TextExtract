@@ -5,7 +5,7 @@ const upload = require("./routes/upload");
 
 //Default routes
 router.get("/", (req, res) => {
-  res.send("Helo World");
+  res.send("Hello There");
 }); // TODO Implement the Frontend
 
 // router.post("/api/getAll", getAll);
