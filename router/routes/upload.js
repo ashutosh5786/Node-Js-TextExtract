@@ -50,7 +50,6 @@ router.post("/api/upload", upload.array('myFile', 25), async (req, res) => { // 
         if(req.files === undefined){
           res.status(400).send("No file selected");
         } else {
-            console.log("File uploaded successfully");
             res.status(200).send('Successfully uploaded ' + req.files.length + ' files!')
         }
         
