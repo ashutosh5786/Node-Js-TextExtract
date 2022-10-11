@@ -63,9 +63,12 @@ const displayBlockInfo = async (response) => {
   }
 };
 
+router.post("/api/extract", async (req, res) => {
 textract.detectDocumentText(params, function (err, data) {
   if (err) console.log(err, err.stack); // an error occurred
   else displayBlockInfo(data); // successful response
 });
+    res.status("200").send("Extracted");
+});
 
-module.exports = router;
+module.exports = router; // Exporting the router to be used in router.js
