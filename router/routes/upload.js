@@ -46,16 +46,17 @@ const upload = multer({
   });
 
 router.post("/api/upload", upload.array('myFile', 25), async (req, res) => { // always try to use the upload.array() method its the only way & for the single file use upload.single('myFile) this filed should be same as the name of the file in the form
-    console.log('files', req.files)
-    //   if (err) console.log(err);
-    //   else { // if the file not found 
-    //     if(req.files === undefined){
-    //       res.send("Error: No File Selected!");
-    //     } else {
-    //         console.log("File uploaded successfully");
-    //     }
-    //   }
-    res.send('Successfully uploaded ' + req.files.length + ' files!')
+    try {
+        if(req.files === undefined){
+          res.status(400).send("No file selected");
+        } else {
+            console.log("File uploaded successfully");
+            res.status(200).send('Successfully uploaded ' + req.files.length + ' files!')
+        }
+        
+    } catch (error) {
+        console.log(error);
+    }
   });
 
 
