@@ -1,13 +1,12 @@
 const express = require("express");
 const router = express.Router();
 const fs = require('fs');
-const { PutObjectCommand, S3Client } = require('@aws-sdk/client-s3');
+const { PutObjectCommand, S3Client, S3 } = require('@aws-sdk/client-s3');
 const path = require("path");
 const multer = require("multer");
 const multerS3 = require("multer-s3");
-const bodyParser = require("body-parser");
 const AWS = require("aws-sdk");
-const app = express();
+
 
 // To verify the credential for aws uncomment thsee line from 11 to 17
 // AWS.config.getCredentials(function(err) {
@@ -25,14 +24,11 @@ const app = express();
 // const { s3 } = require("aws-sdk");
 
 // Create S3 service object
-s3 = new AWS.S3({ apiVersion: "2006-03-01" });
+s3 = new S3({ apiVersion: "2006-03-01" });
 
 // Credentials for AWS account
 var credentials = new AWS.SharedIniFileCredentials({ profile: "default" });
 AWS.config.credentials = credentials;
-
-
-app.use(bodyParser.json());
 
 const upload = multer({
     limits: { fileSize: 2000000  },
@@ -43,24 +39,23 @@ const upload = multer({
       key: function (req, file, cb) {
         // filenames = file.originalname;
         // var fullPath = 'products/' + file.originalname
-        console.log(file)
+        // console.log(file)
         cb(null, file.originalname);
       },
     }),
   });
 
 router.post("/api/upload", upload.array('myFile', 25), async (req, res) => { // always try to use the upload.array() method its the only way & for the single file use upload.single('myFile) this filed should be same as the name of the file in the form
-    upload(req, res, (err) => {
-      console.log('files', req.files)
-      if (err) console.log(err);
-      else { // if the file not found 
-        if(req.files === undefined){
-          res.send("Error: No File Selected!");
-        } else {
-            console.log("File uploaded successfully");
-        }
-      }
-    });
+    console.log('files', req.files)
+    //   if (err) console.log(err);
+    //   else { // if the file not found 
+    //     if(req.files === undefined){
+    //       res.send("Error: No File Selected!");
+    //     } else {
+    //         console.log("File uploaded successfully");
+    //     }
+    //   }
+    res.send('Successfully uploaded ' + req.files.length + ' files!')
   });
 
 
