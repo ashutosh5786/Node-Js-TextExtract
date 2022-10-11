@@ -9,7 +9,14 @@
   "author": "Ashutosh Singh",
   "license": "ISC",
   "dependencies": {
+    "@aws-sdk/client-s3": "^3.186.0",
+    "@aws-sdk/client-textract": "^3.186.0",
+    "@aws-sdk/node-http-handler": "^3.186.0",
+    "aws-sdk": "^2.1231.0",
     "express": "^4.18.2",
-    "nodemon": "^2.0.20"
+    "multer": "^1.4.5-lts.1",
+    "multer-s3": "^3.0.1",
+    "nodemon": "^2.0.20",
+    "path": "^0.12.7"
   }
 }
