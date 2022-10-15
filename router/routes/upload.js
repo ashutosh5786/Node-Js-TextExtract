@@ -41,7 +41,8 @@ router.post("/api/upload", upload.array('myFile', 25), async (req, res) => { // 
         if(req.files === undefined){
           res.status(400).send("No file selected");
         } else {
-            res.status(200).send('Successfully uploaded ' + req.files.length + ' files!');
+            // res.status(200).send('Successfully uploaded ' + req.files.length + ' files!');
+            res.writeHead(307, { Location: '/api/extract/:f' });
 
         }
         
