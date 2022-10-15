@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const { S3 } = require("@aws-sdk/client-s3");
 const AWS = require("aws-sdk");
+const fs = require("fs");
 
 const regionConfig = "ap-south-1";
 // Credentials for AWS account
@@ -15,7 +16,7 @@ const textract = new AWS.Textract();
 // const s3 = new AWS.S3();
 
 const bucket = "nodejs-file";
-const name = "download.pdf";
+const name = "download.pdf"; // photo_2022-10-15_09-25-05.jpg
 
 // Define paramaters
 const params = {
@@ -65,10 +66,19 @@ const displayBlockInfo = async (response) => {
 
 router.post("/api/extract", async (req, res) => {
 textract.detectDocumentText(params, function (err, data) {
-  if (err) console.log(err, err.stack); // an error occurred
-  else displayBlockInfo(data); // successful response
+  if (err) res.status(400).send("Error"); // an error occurred
+  else {
+    let datafromtextract = JSON.stringify(data.Blocks.map((block) => block.Text));
+    // let converteddata = JSON.parse(datafromtextract);
+    fs.writeFileSync("data.json", datafromtextract);
+    // fs.writeFileSync('data.txt', (data));
+    console.log(data.Blocks.map((block) => block.Text)); // successful response
+    // this only returns the text from the image remaining data is not returned if we are mappin the data to text only data.Blocks.map((block) => block.Text)
+    res.status(200).send("Extracted");
+    // let datafile = fs.readFileSync('data.txt')
+    // console.log(JSON.parse(datafile));
+  }
 });
-    res.status("200").send("Extracted");
 });
 
 module.exports = router; // Exporting the router to be used in router.js

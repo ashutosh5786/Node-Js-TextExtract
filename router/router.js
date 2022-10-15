@@ -9,7 +9,7 @@ router.get("/", (req, res) => {
   res.send("Hello There");
 }); // TODO Implement the Frontend
 
-router.post("/api/extract", extract); // Uncomment when set the router in extract.js 
+router.post("/api/extract", extract);
 // TODO Implement the Frontend );
 
 //routing for upload

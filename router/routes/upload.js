@@ -25,7 +25,7 @@ var credentials = new AWS.SharedIniFileCredentials({ profile: "default" });
 AWS.config.credentials = credentials;
 
 const upload = multer({
-    limits: { fileSize: 2000000  },
+    // limits: { fileSize: 2000000  },
     storage: multerS3({
       s3: s3,
       bucket: "nodejs-file",
@@ -41,7 +41,8 @@ router.post("/api/upload", upload.array('myFile', 25), async (req, res) => { // 
         if(req.files === undefined){
           res.status(400).send("No file selected");
         } else {
-            res.status(200).send('Successfully uploaded ' + req.files.length + ' files!')
+            res.status(200).send('Successfully uploaded ' + req.files.length + ' files!');
+
         }
         
     } catch (error) {
