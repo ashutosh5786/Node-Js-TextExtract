@@ -71,7 +71,7 @@ router.post("/api/upload", upload.array("myFile", 25), async (req, res) => {
         })
         .catch(function (error) {
           // res.status(400).send("Error in extracting the data || Upload Image");
-          res.send('<script>alert("Upload only Image and Single Page PDF");</script>')
+          res.send('<script>alert("Upload only Image and Single Page PDF");window.location.href = "/";</script>')
         });
     }
   } catch (error) {
