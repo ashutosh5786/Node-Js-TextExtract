@@ -18,9 +18,11 @@ const axios = require("axios");
 // Create S3 service object
 s3 = new S3({ apiVersion: "2006-03-01" });
 let filenameup = "";
+const regionConfig = "ap-south-1";
 // Credentials for AWS account
 var credentials = new AWS.SharedIniFileCredentials({ profile: "default" });
 AWS.config.credentials = credentials;
+AWS.config.update({ region: regionConfig });
 
 const upload = multer({
   // limits: { fileSize: 2000000  },
