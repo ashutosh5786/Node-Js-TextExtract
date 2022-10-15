@@ -6,7 +6,7 @@ const extract = require("./routes/text_extract");
 
 //Default routes
 router.get("/", (req, res) => {
-  res.send("Hello There");
+  res.render("index");
 }); // TODO Implement the Frontend
 
 router.post("/api/extract/:f", extract);
