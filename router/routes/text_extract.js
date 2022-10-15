@@ -16,18 +16,8 @@ const textract = new AWS.Textract();
 // const s3 = new AWS.S3();
 
 const bucket = "nodejs-file";
-const name = "table-defect-counts.png"; // photo_2022-10-15_09-25-05.jpg
+// const name = "table-defect-counts.png"; // photo_2022-10-15_09-25-05.jpg
 
-// Define paramaters
-const params = {
-  Document: {
-    S3Object: {
-      Bucket: bucket, // @TODO define a veriable with same name as the bucket name above this code snipper
-      Name: name, // Name of the file you want to extract text from
-    },
-  },
-  // FeatureTypes: ['FORMS', 'TABLES'], // Use this when you want to use analyzeDocument in textract.analyzeDocument
-};
 
 // To create the bouding box for the data in the image uncomment it when you have fix the convas error 
 // const displayBlockInfo = async (response) => {
@@ -66,15 +56,26 @@ const params = {
 // };
 
 router.post("/api/extract/:f", (req, res) => {
+  // Define paramaters
+const params = {
+  Document: {
+    S3Object: {
+      Bucket: bucket, // @TODO define a veriable with same name as the bucket name above this code snipper
+      Name: req.params.f, // Name of the file you want to extract text from
+    },
+  },
+  // FeatureTypes: ['FORMS', 'TABLES'], // Use this when you want to use analyzeDocument in textract.analyzeDocument
+};
   textract.detectDocumentText(params, function (err, data) {
     if (err)
       res.status(400).send("Error"); // an error occurred
     else {
       let datafromtextract = JSON.stringify(data.Blocks.map((block) => block.Text));
       fs.writeFileSync("data.txt", datafromtextract);
-      console.log(data.Blocks.map((block) => block.Text)); // successful response
+      // console.log(data.Blocks.map((block) => block.Text)); // successful response
       // this only returns the text from the image remaining data is not returned if we are mappin the data to text only data.Blocks.map((block) => block.Text)
       res.status(200).send("Extracted");
+      // console.log(req.params.f);
     }
   });
 });
