@@ -1,0 +1,26 @@
+<style>
+  div.justified {
+    display: flex;
+    justify-content: center;
+  }
+  h1 {
+    text-align: center;
+  }
+</style>
+<h1>Extracted Data</h1>
+<div class="justified">
+  <textarea id="yourTextArea" rows="25" cols="100" readonly>
+<%= text %>
+  </textarea>
+  <br />
+  <button onclick="copyToClipboard()">Copy</button>
+</div>
+
+<script>
+  function copyToClipboard() {
+    var copyText = document.getElementById("yourTextArea");
+    copyText.select();
+    copyText.setSelectionRange(0, 99999);
+    document.execCommand("copy");
+  }
+</script>

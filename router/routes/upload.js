@@ -35,20 +35,20 @@ const upload = multer({
   }),
 });
 
-function extraction() {
-  let f = filenameup;
-  let url = "http://localhost/api/extract/" + f;
-  axios({
-    method: "post",
-    url
-  })
-    .then(function (response) {
-      console.log(response.data);
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
-}
+// function extraction() {
+//   let f = filenameup;
+//   let url = "http://localhost/api/extract/" + f;
+//   axios({
+//     method: "post",
+//     url,
+//   })
+//     .then(function (response) {
+//       console.log(response.data);
+//     })
+//     .catch(function (error) {
+//       console.log(error);
+//     });
+// }
 
 router.post("/api/upload", upload.array("myFile", 25), async (req, res) => {
   // always try to use the upload.array() method its the only way & for the single file use upload.single('myFile) this filed should be same as the name of the file in the form
@@ -56,10 +56,21 @@ router.post("/api/upload", upload.array("myFile", 25), async (req, res) => {
     if (req.files === undefined) {
       res.status(400).send("No file selected");
     } else {
-      res
-        .status(200)
-        .send("Successfully uploaded " + req.files.length + " files!");
-      extraction();
+      // res
+      //   .status(200)
+      //   .send("Successfully uploaded " + req.files.length + " files!");
+      let f = filenameup;
+      let url = "http://localhost/api/extract/" + f;
+      axios({
+        method: "post",
+        url,
+      })
+        .then(function (response) {
+          res.send(response.data);
+        })
+        .catch(function (error) {
+          res.status(400).send("Error in extracting the data || Upload Image and PDF only");
+        });
     }
   } catch (error) {
     console.log(error);

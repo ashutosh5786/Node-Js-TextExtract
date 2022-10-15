@@ -1,8 +1,9 @@
 const express = require("express");
 const router = express.Router();
-const { S3 } = require("@aws-sdk/client-s3");
 const AWS = require("aws-sdk");
 const fs = require("fs");
+
+
 
 const regionConfig = "ap-south-1";
 // Credentials for AWS account
@@ -70,11 +71,12 @@ const params = {
     if (err)
       res.status(400).send("Error"); // an error occurred
     else {
+      var datafortable = data.Blocks.map((block) => block.Text);
       let datafromtextract = JSON.stringify(data.Blocks.map((block) => block.Text));
       fs.writeFileSync("data.txt", datafromtextract);
       // console.log(data.Blocks.map((block) => block.Text)); // successful response
       // this only returns the text from the image remaining data is not returned if we are mappin the data to text only data.Blocks.map((block) => block.Text)
-      res.status(200).send("Extracted");
+      res.render("table", { text: datafromtextract });
       // console.log(req.params.f);
     }
   });
