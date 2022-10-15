@@ -5,7 +5,6 @@ const multer = require("multer");
 const multerS3 = require("multer-s3");
 const AWS = require("aws-sdk");
 const axios = require("axios");
-
 // To verify the credential for aws uncomment thsee line from 11 to 17
 // AWS.config.getCredentials(function(err) {
 //     if (err) console.log(err.stack);
@@ -71,7 +70,8 @@ router.post("/api/upload", upload.array("myFile", 25), async (req, res) => {
           res.send(response.data);
         })
         .catch(function (error) {
-          res.status(400).send("Error in extracting the data || Upload Image and PDF only");
+          // res.status(400).send("Error in extracting the data || Upload Image");
+          res.send('<script>alert("Upload only Image and Single Page PDF");</script>')
         });
     }
   } catch (error) {

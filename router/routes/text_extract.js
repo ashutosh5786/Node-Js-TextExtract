@@ -76,7 +76,7 @@ const params = {
       fs.writeFileSync("data.txt", datafromtextract);
       // console.log(data.Blocks.map((block) => block.Text)); // successful response
       // this only returns the text from the image remaining data is not returned if we are mappin the data to text only data.Blocks.map((block) => block.Text)
-      res.render("table", { text: datafromtextract });
+      res.render("table", { text: datafortable });
       // console.log(req.params.f);
     }
   });
